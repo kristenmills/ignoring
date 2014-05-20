@@ -1,6 +1,6 @@
 # Ignoring
 
-TODO: Write a gem description
+Tool for managing and creating your `.gitignore`
 
 ## Installation
 
