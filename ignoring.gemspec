@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["kristen@kristen-mills.com"]
   spec.summary       = "Tool for managing gitignores"
   spec.description   = "Tool for managing gitignores"
-  spec.homepage      = "https://"
+  spec.homepage      = "https://github.com/kristenmills/ignoring"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
