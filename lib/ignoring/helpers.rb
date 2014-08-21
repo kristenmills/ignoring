@@ -2,6 +2,7 @@ require "fileutils"
 require "octokit"
 require "highline/import"
 require "git"
+require "terminal-table"
 
 module Ignoring
   module Helpers
@@ -26,7 +27,7 @@ module Ignoring
     # Logic for adding an item to a gitignore
     #
     # @param options the options hash
-    # @param items the items to add
+    # @param items the items/languages to add
     def add(options, items)
       if options[:global]
         file = Git.global_config("core.excludesfile")
@@ -53,6 +54,23 @@ module Ignoring
       end
     end
 
+    # Logic for listing the languages
+    def list
+      langs = Octokit.gitignore_templates
+      lang_rows = []
+      langs.each_slice(4) do |group|
+        lang_rows << group
+      end
+      table = Terminal::Table.new(rows: lang_rows)
+      table.style = {border_x: "", border_i: "", border_y: ""}
+      puts table
+    rescue
+      puts "Error gitting language information. You might have reached your rate limit for the hour."
+    end
+
+    private
+
+    # Helper method for parsing github language template
     def language_array(language)
       Octokit.gitignore_template(language)[:source].split("\n")
     rescue

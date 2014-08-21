@@ -19,7 +19,7 @@ module Ignoring
 
     desc "list", "lists the different languages available from github/gitignore"
     def list
-      # TODO
+      Helpers::list
     end
 
     desc "show", "displays a gitignore"
