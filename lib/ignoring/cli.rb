@@ -26,7 +26,7 @@ module Ignoring
     option :global, type: :boolean, desc: "whether to use global gitignore", aliases: :g
     option :language, desc: "displays gitignore for language from github/gitignore repo", aliases: :l
     def show
-      # TODO
+      Helpers::show(options)
     end
   end
 end

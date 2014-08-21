@@ -68,6 +68,22 @@ module Ignoring
       puts "Error gitting language information. You might have reached your rate limit for the hour."
     end
 
+    # logic for showing gitignores
+    #
+    # @param options the options hash
+    def show(options)
+      if options[:global]
+        file = Git.global_config("core.excludesfile")
+        puts File.read(file) if File.exists?(file)
+      elsif options[:language]
+        puts Octokit.gitignore_template(options[:language])[:source]
+      else
+        puts File.read('.gitignore') if File.exists?('.gitignore')
+      end
+    rescue
+      puts "#{language} is not a valid language."
+    end
+
     private
 
     # Helper method for parsing github language template
