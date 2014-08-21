@@ -74,8 +74,8 @@ Print a specific language to STDOUT
 
 ## Contributing
 
-1. Fork it ( http://github.com/<my-github-username>/ignoring/fork )
-2. Create your feature branch (`git checkout -b my-new-feature`)
+1. Fork it ( http://github.com/kristenmills/ignoring/fork )
+2. Create your feature branch (`git checkout -b feature/my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
+4. Push to the branch (`git push origin feature/my-new-feature`)
 5. Create new Pull Request
