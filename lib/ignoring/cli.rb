@@ -1,4 +1,7 @@
 require "thor"
+require "highline/import"
+require "git"
+require "fileutils"
 
 # CLI class
 module Ignoring
@@ -7,7 +10,16 @@ module Ignoring
     desc "create", "creates a new gitignore if one doesn't exist in the directory"
     option :global, type: :boolean, desc: "whether to use global gitignore", aliases: :g
     def create
-      # TODO
+      if options[:global]
+        file = Git.global_config("core.excludesfile")
+        if file.empty?
+          file = ask("Where would you like your global gitignore? ")
+          Git.global_config("core.excludesfile", file)
+        end
+      else
+        file = '.gitignore'
+      end
+      FileUtils.touch(file)
     end
 
     desc "add [ITEM...]", "Adds a new item to the gitignore if it isn't already added"
