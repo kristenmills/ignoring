@@ -1,4 +1,8 @@
-require 'fileutils'
+require "fileutils"
+require "octokit"
+require "highline/import"
+require "git"
+
 module Ignoring
   module Helpers
     extend self
@@ -33,13 +37,26 @@ module Ignoring
         puts "No gitignore. run create first." if file.empty?
       else
         combined = File.open(file).read.split("\n")
-        items.each { |item| combined << item unless combined.include? item }
+        if options[:languages]
+          languages = items
+          items = []
+          languages.each do |lang|
+            items += language_array(lang) || []
+          end
+        end
+        items.each { |item| combined << item if !combined.include? item or item.start_with? "#" or item.empty? }
         File.open(file, "w") do |file|
           combined.each do |item|
             file.puts item
           end
         end
       end
+    end
+
+    def language_array(language)
+      Octokit.gitignore_template(language)[:source].split("\n")
+    rescue
+      puts "#{language} is not a valid language."
     end
   end
 end

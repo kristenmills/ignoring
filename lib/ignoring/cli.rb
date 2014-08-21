@@ -1,7 +1,4 @@
 require "thor"
-require "highline/import"
-require "git"
-require "fileutils"
 
 # CLI class
 module Ignoring
@@ -13,21 +10,12 @@ module Ignoring
       Helpers::create(options)
     end
 
-    desc "add [ITEM...]", "Adds a new item to the gitignore if it isn't already added"
-    option :global, type: :boolean, desc: "whether to use global gitignore", aliases: :g
+    desc "add [ITEM/LANGUAGE...]", "Adds a new item to the gitignore if it isn't already added"
+    option :global, type: :boolean, desc: "use global gitignore", aliases: :g
+    option :languages, type: :boolean, desc: "get language templates from github", aliases: :l
     def add(*items)
       Helpers::add(options, items)
     end
-
-    desc "language [LANGUAGE...]", "Adds the gitignore from github/gitignore repo to the gitignore."
-    option :global, type: :boolean, desc: "whether to use global gitignore", aliases: :g
-    def language(*language)
-      # TODO
-    end
-
-    desc "lang [LANGUAGE...]", "Adds the gitignore from github/gitignore repo to the gitignore."
-    option :global, type: :boolean, desc: "whether to use global gitignore", aliases: :g
-    alias_method :lang, :language
 
     desc "list", "lists the different languages available from github/gitignore"
     def list
