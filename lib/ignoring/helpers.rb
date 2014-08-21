@@ -81,7 +81,7 @@ module Ignoring
         puts File.read('.gitignore') if File.exists?('.gitignore')
       end
     rescue
-      puts "#{language} is not a valid language."
+      puts "#{options[:language]} is not a valid language. Use list to see options."
     end
 
     private
