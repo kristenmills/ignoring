@@ -25,4 +25,5 @@ Gem::Specification.new do |spec|
   spec.add_dependency "git", "~> 1.2.8"
   spec.add_dependency "highline", "~> 1.6"
   spec.add_dependency "terminal-table", "~> 1.4.5"
+  spec.add_dependency "octokit", "~> 3.3.1"
 end
