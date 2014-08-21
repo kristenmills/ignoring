@@ -1,5 +1,7 @@
 require "ignoring/version"
+require "ignoring/cli"
 
+# Ignoring module
 module Ignoring
-  # Your code goes here...
+
 end
