@@ -10,22 +10,13 @@ module Ignoring
     desc "create", "creates a new gitignore if one doesn't exist in the directory"
     option :global, type: :boolean, desc: "whether to use global gitignore", aliases: :g
     def create
-      if options[:global]
-        file = Git.global_config("core.excludesfile")
-        if file.empty?
-          file = ask("Where would you like your global gitignore? ")
-          Git.global_config("core.excludesfile", file)
-        end
-      else
-        file = '.gitignore'
-      end
-      FileUtils.touch(file)
+      Helpers::create(options)
     end
 
     desc "add [ITEM...]", "Adds a new item to the gitignore if it isn't already added"
     option :global, type: :boolean, desc: "whether to use global gitignore", aliases: :g
     def add(*items)
-      # TODO
+      Helpers::add(options, items)
     end
 
     desc "language [LANGUAGE...]", "Adds the gitignore from github/gitignore repo to the gitignore."
