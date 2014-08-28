@@ -29,27 +29,24 @@ module Ignoring
     # @param options the options hash
     # @param items the items/languages to add
     def add(options, items)
+      create(options)
       if options[:global]
         file = Git.global_config("core.excludesfile")
       else
-        file = ".gitignore" if File.exist?(".gitignore")
+        file = ".gitignore"
       end
-      if file.empty? or file.nil?
-        puts "No gitignore. run create first." if file.empty?
-      else
-        combined = File.open(file).read.split("\n")
-        if options[:languages]
-          languages = items
-          items = []
-          languages.each do |lang|
-            items += language_array(lang) || []
-          end
+      combined = File.open(file).read.split("\n")
+      if options[:languages]
+        languages = items
+        items = []
+        languages.each do |lang|
+          items += language_array(lang) || []
         end
-        items.each { |item| combined << item if !combined.include? item or item.start_with? "#" or item.empty? }
-        File.open(file, "w") do |file|
-          combined.each do |item|
-            file.puts item
-          end
+      end
+      items.each { |item| combined << item if !combined.include? item or item.start_with? "#" or item.empty? }
+      File.open(file, "w") do |file|
+        combined.each do |item|
+          file.puts item
         end
       end
     end
